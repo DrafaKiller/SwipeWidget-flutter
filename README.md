@@ -54,9 +54,9 @@ SwipeWidget(
 * **Distance** is the threshold needed to take action when released. (Example: If it was 0.5, you would only need to drag half way and releasing, it would act like a full swipe)
 * **Angle** is in radians, while **rotation** is in degrees. (Angle has priority)
 
-## GitHub (Gist)
+## GitHub
 
-The widget code is available on Gist: [Flutter - SwipeWidget](https://gist.github.com/DrafaKiller/280bb43aa2b9e9fe2ac118b37db0f91b)
+The widget code is available on Github: [Flutter - SwipeWidget](https://github.com/DrafaKiller/SwipeWidget)
 
 ## Widget Preview
 Example 1

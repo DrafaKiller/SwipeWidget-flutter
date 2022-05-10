@@ -1,7 +1,7 @@
 name: swipe_widget
-description: Make a Widget swipe to the sides, adding different funcionalities.
-version: 0.0.1+5
-homepage: https://gist.github.com/DrafaKiller/280bb43aa2b9e9fe2ac118b37db0f91b
+description: Widget to swipe to the sides, adding different funcionalities.
+version: 0.0.1+6
+homepage: https://github.com/DrafaKiller/SwipeWidget
 
 environment:
   sdk: ">=2.16.2 <3.0.0"

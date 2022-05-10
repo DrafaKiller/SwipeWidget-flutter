@@ -22,3 +22,7 @@
 ## 0.0.1+5
 
 * Added: More documentation
+
+## 0.0.1+6
+
+* Fixed: File formatting to match Dart formatter (for Pub Points)
