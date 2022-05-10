@@ -11,7 +11,7 @@ import 'dart:math' as math;
 /// 
 /// ```dart
 /// SwipeWidget(
-///     child: <your_widget>
+///     child: <widget>
 /// );
 /// ```
 /// 
@@ -22,7 +22,7 @@ import 'dart:math' as math;
 ///     onSwipeLeft: () => print('Swiped left! I feel rejected...'),
 ///     onSwipeRight: () => print('Swiped right!'),
 ///     onUpdate: (distance) => print('The distance of the swipe is $distance (from 0 to 1)'),
-///     child: <your_widget>
+///     child: <widget>
 /// );
 /// ```
 /// 
@@ -34,29 +34,85 @@ import 'dart:math' as math;
 ///     rotation: 25,
 ///     scale: 1,
 ///     dragResistance: 0.5,
-///     child: <your_widget>
+///     child: <widget>
 /// );
 /// ```
 /// * These properties are related to how far the widget is being dragged.
-/// * **Distance** is the threshold needed to take action when dropping. (Example: If it was 0.5, you would only need to drag half way and let it go, it would act like a full swipe)
-/// * **Angle** is in radians, while **rotation** is in degrees. (Angle has priority)
+/// * **Distance** is the threshold needed to take action when released. (Example: If it was 0.5, you would only need to drag half way and releasing, it would act like a full swipe)
+/// * **Angle** is in radians, while **rotation** is in degrees. (Angle has priority over rotation)
 class SwipeWidget extends StatefulWidget {
+
+  /// The child widget.
   final Widget child;
 
+  /// Called when the widget is swiped.
   final void Function()? onSwipe;
-  final void Function()? onSwipeLeft;
-  final void Function()? onSwipeRight;
-  final void Function(double)? onUpdate;
 
+  /// Called when the widget is swiped to the left.
+  final void Function()? onSwipeLeft;
+
+  /// Called when the widget is swiped to the right.
+  final void Function()? onSwipeRight;
+
+  /// Called when the widget is being dragged, including the distance.
+  final void Function(double distance)? onUpdate;
+
+  /// ## Distance
+  /// How far the widget is dragged before it is considered a swipe after it is released. From `0` to `1`.
+  /// 
+  /// The default is `0.5`, meaning that from the center to the side, it only needs to be dragged 50%, half way.
   final double distance;
+
+  /// ## Drag Resistance
+  /// When dragging, the widget can show resistance by staying behind the pointer/finger. From `0` to `1`.
+  /// 
+  /// The default is `0.5`, meaning that the widget will be displayed 50% between the center and the pointer/finger.
+  /// 
+  /// ***Example:** Resistance at `0` would make the widget be exactly where the pointer/finger is.*
   final double dragResistance;
+
+  /// ## Angle
+  /// Maximum rotation in **radians** of the widget when dragged.
+  /// 
+  /// The default is `0.436332` (25 degrees).
+  /// 
+  /// Alternatively you can use [rotation] for **degrees**.
+  /// 
+  /// [angle] has priority over [rotation].
   final double angle;
+
+  /// ## Rotation
+  /// Maximum rotation in **degrees** of the widget when dragged.
+  /// 
+  /// The default is `25` degrees.
+  /// 
+  /// Alternatively you can use [angle] for **radians**.
+  /// 
+  /// [angle] has priority over [rotation].
   final double rotation;
+
+  /// ## Scale
+  /// Scale of the widget when dragged.
+  /// 
+  /// The default is `1`.
+  /// 
+  /// ***Example:** To make the widget smaller when dragged, use a number smaller than 1.*
   final double scale;
 
+  /// ## Velocity
+  /// Minimum velocity of the widget after swiped.
+  /// 
+  /// The default is `150`.
   final double minVelocity = 150;
+
+  /// ## Velocity
+  /// Maximum velocity of the widget after swiped.
+  /// 
+  /// The default is `500`.
   final double maxVelocity = 500;
 
+  /// ## Swipe Widget
+  /// Creates a draggable Widget, that can be swiped to the left or right.
   const SwipeWidget({
     Key? key, required this.child,
     this.onSwipe, this.onSwipeLeft, this.onSwipeRight, this.onUpdate,
@@ -117,7 +173,9 @@ class _SwipeWidgetState extends State<SwipeWidget> with TickerProviderStateMixin
     );
   }
   
-  /// Set the position of the Widget, taking into account the angle and scale.
+  /// Set the position of the Widget, changing the angle and scale, accordingly.
+  /// 
+  /// The position is always from the center of the widget, using a offset.
   void setOffset(Offset offset) {
     setState(() {
       final RenderBox renderBox = context.findRenderObject() as RenderBox;
@@ -131,7 +189,7 @@ class _SwipeWidgetState extends State<SwipeWidget> with TickerProviderStateMixin
     });
   }
 
-  /// Moves the widget to a position, smoothly.
+  /// Moves the widget to a position, smoothly with an animation.
   void animateTo(Offset offset) {
     _fade = false;
     _animation = _tween.animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
@@ -141,13 +199,13 @@ class _SwipeWidgetState extends State<SwipeWidget> with TickerProviderStateMixin
     _controller.forward();
   }
 
-  /// Reset the widget to the center position.
+  /// Resets the widget back to the center position, smoothly.
   void reset() {
     _fade = false;
     animateTo(Offset.zero);
   }
   
-  /// Swipe to the left, while fading.
+  /// Programatically swipes the widget to the left, with a fading animation.
   void left() {
     animateTo(_offset - Offset(_velocity.dx.abs().clamp(widget.minVelocity, widget.maxVelocity), 0) + Offset(0, _velocity.dy / 10));
     _fade = true;
@@ -156,7 +214,7 @@ class _SwipeWidgetState extends State<SwipeWidget> with TickerProviderStateMixin
     _controller.addStatusListener(_done);
   }
 
-  /// Swipe to the right, while fading.
+  /// Programatically swipes the widget to the right, with a fading animation.
   void right() {
     animateTo(_offset + Offset(_velocity.dx.abs().clamp(widget.minVelocity, widget.maxVelocity), 0) + Offset(0, _velocity.dy / 10));
     _fade = true;

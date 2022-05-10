@@ -24,7 +24,7 @@ import 'package:swipe_widget/swipe_widget.dart';
 It's as simple as:
 ```dart
 SwipeWidget(
-    child: <your_widget>
+    child: <widget>
 );
 ```
 
@@ -35,7 +35,7 @@ SwipeWidget(
     onSwipeLeft: () => print('Swiped left! I feel rejected...'),
     onSwipeRight: () => print('Swiped right!'),
     onUpdate: (distance) => print('The distance of the swipe is $distance (from 0 to 1)'),
-    child: <your_widget>
+    child: <widget>
 );
 ```
 
@@ -47,11 +47,11 @@ SwipeWidget(
     rotation: 25,
     scale: 1,
     dragResistance: 0.5,
-    child: <your_widget>
+    child: <widget>
 );
 ```
 * These properties are related to how far the widget is being dragged.
-* **Distance** is the threshold needed to take action when dropping. (Example: If it was 0.5, you would only need to drag half way and let it go, it would act like a full swipe)
+* **Distance** is the threshold needed to take action when released. (Example: If it was 0.5, you would only need to drag half way and releasing, it would act like a full swipe)
 * **Angle** is in radians, while **rotation** is in degrees. (Angle has priority)
 
 ## GitHub (Gist)

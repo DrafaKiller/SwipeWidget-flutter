@@ -18,3 +18,7 @@
 ## 0.0.1+4
 
 * Fixed: Documentation 
+
+## 0.0.1+5
+
+* Added: More documentation
