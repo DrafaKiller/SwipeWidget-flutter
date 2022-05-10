@@ -4,8 +4,9 @@ A Flutter Widget to make your widgets swipe to the sides.
 ## Features
 
 * Your widget will be draggable with a smooth animation.
-* When dragging to the sides and let go, if the widget is passed a certain threshold it will swipe away.
+* When dragging to the sides and releasing, the widget will swipe away if it passes a certain threshold.
 * You can set actions for swipe, left and right, and to when the distance changes.
+* You can customize how it reacts when dragged, parameters are available when creating the widget.
 
 ## Getting started
 
@@ -52,7 +53,7 @@ SwipeWidget(
 ```
 * These properties are related to how far the widget is being dragged.
 * **Distance** is the threshold needed to take action when released. (Example: If it was 0.5, you would only need to drag half way and releasing, it would act like a full swipe)
-* **Angle** is in radians, while **rotation** is in degrees. (Angle has priority)
+* **Angle** is in radians, while **rotation** is in degrees. (Angle has priority over rotation)
 
 ## GitHub
 
