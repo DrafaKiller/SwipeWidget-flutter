@@ -33,7 +33,7 @@ import 'dart:math' as math;
 ///     angle: 0.4,
 ///     rotation: 25,
 ///     scale: 1,
-///     dragResistance: 0.5,
+///     dragStrenght: 0.5,
 ///     child: <widget>
 /// );
 /// ```
@@ -63,13 +63,13 @@ class SwipeWidget extends StatefulWidget {
   /// The default is `0.5`, meaning that from the center to the side, it only needs to be dragged 50%, half way.
   final double distance;
 
-  /// ## Drag Resistance
+  /// ## Drag Strenght
   /// When dragging, the widget can show resistance by staying behind the pointer/finger. From `0` to `1`.
   /// 
-  /// The default is `0.5`, meaning that the widget will be displayed 50% between the center and the pointer/finger.
+  /// The default is `0.5`, meaning that the widget will be displayed 50% between the original position and the pointer/finger.
   /// 
-  /// ***Example:** Resistance at `0` would make the widget be exactly where the pointer/finger is.*
-  final double dragResistance;
+  /// ***Example:** Strenght at `1` would make the widget be exactly where the pointer/finger is.*
+  final double dragStrenght;
 
   /// ## Angle
   /// Maximum rotation in **radians** of the widget when dragged.
@@ -116,7 +116,7 @@ class SwipeWidget extends StatefulWidget {
   const SwipeWidget({
     Key? key, required this.child,
     this.onSwipe, this.onSwipeLeft, this.onSwipeRight, this.onUpdate,
-    this.distance = 0.5, this.dragResistance = 0.5,
+    this.distance = 0.5, this.dragStrenght = 0.5,
     double? angle, this.rotation = 25, this.scale = 1
   }) : angle = angle ?? math.pi * rotation / 180, super(key: key);
 
@@ -153,13 +153,13 @@ class _SwipeWidgetState extends State<SwipeWidget> with TickerProviderStateMixin
           child: Opacity(
             opacity: 1 - (_fade ? _controller.value : 0),
             child: GestureDetector(
-              onPanUpdate: (details) => setOffset(_offset + details.delta * widget.dragResistance),
+              onPanUpdate: (details) => setOffset(_offset + details.delta * widget.dragStrenght),
               onPanEnd: (details) {
                 _velocity = details.velocity.pixelsPerSecond;
                 
-                if (_distance / widget.dragResistance > widget.distance) {
+                if (_distance / widget.dragStrenght > widget.distance) {
                   right();
-                } else if (_distance / widget.dragResistance < -widget.distance) {
+                } else if (_distance / widget.dragStrenght < -widget.distance) {
                   left();
                 } else {
                   reset();

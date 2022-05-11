@@ -47,7 +47,7 @@ SwipeWidget(
     angle: 0.4,
     rotation: 25,
     scale: 1,
-    dragResistance: 0.5,
+    dragStrenght: 0.5,
     child: <widget>
 );
 ```

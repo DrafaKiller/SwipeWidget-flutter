@@ -21,12 +21,10 @@ class _MyAppState extends State<MyApp> with TickerProviderStateMixin {
       home: Scaffold(
         body: SwipeWidget(
             key: UniqueKey(),
-            onSwipe: () => Future.delayed(
-                const Duration(milliseconds: 300), () => setState(() {})),
+            onSwipe: () => Future.delayed(const Duration(milliseconds: 300), () => setState(() {})),
             child: AlertDialog(
               title: const Text('SwipeWidget'),
-              content: const Text(
-                  'Wait! You can swipe me instead.\nIt\'s more fun.'),
+              content: const Text('Wait! You can swipe me instead.\nIt\'s more fun.'),
               actions: <Widget>[
                 TextButton(
                   child: const Text('OK'),
