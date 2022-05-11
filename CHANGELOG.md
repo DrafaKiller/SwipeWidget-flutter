@@ -26,3 +26,7 @@
 ## 0.0.1+6
 
 * Fixed: File formatting to match Dart formatter (for Pub Points)
+
+## 0.0.2
+
+* Changed: DragResistance changed to DragStrenght, as it was intended
