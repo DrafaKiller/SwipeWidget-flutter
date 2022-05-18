@@ -30,3 +30,7 @@
 ## 0.0.2
 
 * Changed: DragResistance changed to DragStrenght, as it was intended
+
+## 0.0.2+1
+
+* Changed: License to MIT
